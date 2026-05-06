@@ -17,19 +17,19 @@ maybe('Content service (integration)', () => {
     process.env.JWT_ACCESS_SECRET ??= 'test-secret-test-secret-test-secret';
     await resetDb();
     const a = await seedUser({
-      email: 'author@local',
+      email: 'author@example.com',
       password: 'pass1234',
       role: 'AUTHOR',
       name: 'Author',
     });
     const e = await seedUser({
-      email: 'editor@local',
+      email: 'editor@example.com',
       password: 'pass1234',
       role: 'EDITOR',
       name: 'Editor',
     });
-    author = { id: a.id, email: 'author@local', role: 'AUTHOR', name: 'Author' };
-    editor = { id: e.id, email: 'editor@local', role: 'EDITOR', name: 'Editor' };
+    author = { id: a.id, email: 'author@example.com', role: 'AUTHOR', name: 'Author' };
+    editor = { id: e.id, email: 'editor@example.com', role: 'EDITOR', name: 'Editor' };
   });
   afterAll(async () => {
     await getPrisma().$disconnect();

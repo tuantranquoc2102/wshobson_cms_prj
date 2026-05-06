@@ -265,10 +265,10 @@ The seed is idempotent (`upsert` on stable keys: email, slug). It bootstraps:
 
 | Role   | Email             | Password (default)            |
 | ------ | ----------------- | ----------------------------- |
-| ADMIN  | `admin@local`*    | `admin1234`*                  |
-| EDITOR | `editor@local`    | `editor1234`                  |
-| AUTHOR | `author1@local`   | `author1234`                  |
-| AUTHOR | `author2@local`   | `author1234`                  |
+| ADMIN  | `admin@example.com`*    | `admin1234`*                  |
+| EDITOR | `editor@example.com`    | `editor1234`                  |
+| AUTHOR | `author1@example.com`   | `author1234`                  |
+| AUTHOR | `author2@example.com`   | `author1234`                  |
 
 \* Overridable via `SEED_ADMIN_EMAIL` / `SEED_ADMIN_PASSWORD`.
 

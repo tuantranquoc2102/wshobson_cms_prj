@@ -18,14 +18,14 @@ maybe('Public API (integration)', () => {
     process.env.JWT_ACCESS_SECRET ??= 'test-secret-test-secret-test-secret';
     await resetDb();
     const e = await seedUser({
-      email: 'public-editor@local',
+      email: 'public-editor@example.com',
       password: 'pass1234',
       role: 'EDITOR',
       name: 'PubEditor',
     });
     editor = {
       id: e.id,
-      email: 'public-editor@local',
+      email: 'public-editor@example.com',
       role: 'EDITOR',
       name: 'PubEditor',
     };

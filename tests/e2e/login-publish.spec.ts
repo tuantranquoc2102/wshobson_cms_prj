@@ -17,11 +17,11 @@ test.describe('Login → publish flow', () => {
 
   const baseURL = process.env.E2E_BASE_URL ?? 'http://localhost:3000';
   const author = {
-    email: process.env.E2E_AUTHOR_EMAIL ?? 'author@local',
+    email: process.env.E2E_AUTHOR_EMAIL ?? 'author@example.com',
     password: process.env.E2E_AUTHOR_PASSWORD ?? 'authorpass1',
   };
   const editor = {
-    email: process.env.E2E_EDITOR_EMAIL ?? 'editor@local',
+    email: process.env.E2E_EDITOR_EMAIL ?? 'editor@example.com',
     password: process.env.E2E_EDITOR_PASSWORD ?? 'editorpass1',
   };
   const slug = `e2e-test-${Date.now()}`;

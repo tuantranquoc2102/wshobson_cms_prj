@@ -21,14 +21,14 @@ maybe('Media service (integration)', () => {
     process.env.JWT_ACCESS_SECRET ??= 'test-secret-test-secret-test-secret';
     await resetDb();
     const e = await seedUser({
-      email: 'media-editor@local',
+      email: 'media-editor@example.com',
       password: 'pass1234',
       role: 'EDITOR',
       name: 'MediaEditor',
     });
     editor = {
       id: e.id,
-      email: 'media-editor@local',
+      email: 'media-editor@example.com',
       role: 'EDITOR',
       name: 'MediaEditor',
     };

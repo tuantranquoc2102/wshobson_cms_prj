@@ -79,8 +79,8 @@ curl -X POST http://localhost:3000/api/auth/register \
 curl -X POST http://localhost:3000/api/auth/login \
   -H 'Content-Type: application/json' \
   -c cookies.txt \
-  -d '{"email":"admin@local","password":"admin1234"}'
-# {"user":{"id":"...","email":"admin@local","name":"Site Admin","role":"ADMIN"},"accessToken":"eyJ..."}
+  -d '{"email":"admin@example.com","password":"admin1234"}'
+# {"user":{"id":"...","email":"admin@example.com","name":"Site Admin","role":"ADMIN"},"accessToken":"eyJ..."}
 ```
 
 ### POST `/api/auth/refresh`
@@ -130,7 +130,7 @@ curl -X POST http://localhost:3000/api/auth/logout -b cookies.txt -c cookies.txt
 
 ```bash
 curl http://localhost:3000/api/auth/me -H "Authorization: Bearer $TOKEN"
-# {"id":"clxx...","email":"admin@local","name":"Site Admin","role":"ADMIN"}
+# {"id":"clxx...","email":"admin@example.com","name":"Site Admin","role":"ADMIN"}
 ```
 
 ---

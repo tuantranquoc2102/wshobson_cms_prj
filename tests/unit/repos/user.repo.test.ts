@@ -6,8 +6,8 @@ describe('UserRepo', () => {
   it('findByEmail issues a unique lookup', async () => {
     const stub = makePrismaStub();
     stub.user.findUnique.mockResolvedValue({ id: 'u1' });
-    const out = await UserRepo.findByEmail('me@local', asTx(stub));
-    expect(stub.user.findUnique).toHaveBeenCalledWith({ where: { email: 'me@local' } });
+    const out = await UserRepo.findByEmail('me@example.com', asTx(stub));
+    expect(stub.user.findUnique).toHaveBeenCalledWith({ where: { email: 'me@example.com' } });
     expect(out).toEqual({ id: 'u1' });
   });
 

@@ -41,7 +41,7 @@ The MVP is "done" when:
 - Categories and tags, with many-to-many relations to posts.
 - Public site rendering for published content with SSG/ISR where sensible.
 - Admin dashboard (counts, recent activity, user management).
-- Seed script that bootstraps an `admin@local` user and a few sample posts/categories.
+- Seed script that bootstraps an `admin@example.com` user and a few sample posts/categories.
 - Docker Compose for local Postgres, plus README run instructions.
 
 ### Out of Scope

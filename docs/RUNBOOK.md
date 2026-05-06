@@ -48,10 +48,10 @@ These come from `prisma/seed.ts`. **Change them before sharing the box.**
 
 | Role   | Email           | Password     |
 | ------ | --------------- | ------------ |
-| ADMIN  | `admin@local`   | `admin1234`  |
-| EDITOR | `editor@local`  | `editor1234` |
-| AUTHOR | `author1@local` | `author1234` |
-| AUTHOR | `author2@local` | `author1234` |
+| ADMIN  | `admin@example.com`   | `admin1234`  |
+| EDITOR | `editor@example.com`  | `editor1234` |
+| AUTHOR | `author1@example.com` | `author1234` |
+| AUTHOR | `author2@example.com` | `author1234` |
 
 The admin pair can be overridden in `.env` via `SEED_ADMIN_EMAIL` and
 `SEED_ADMIN_PASSWORD` before running `npm run prisma:seed`.
@@ -74,7 +74,7 @@ curl -s http://localhost:3000/api/auth/me \
 ### Promote / create another admin
 
 ```bash
-SEED_ADMIN_EMAIL=ops@local SEED_ADMIN_PASSWORD=$(openssl rand -hex 16) \
+SEED_ADMIN_EMAIL=ops@example.com SEED_ADMIN_PASSWORD=$(openssl rand -hex 16) \
   tsx scripts/create-admin.ts
 ```
 

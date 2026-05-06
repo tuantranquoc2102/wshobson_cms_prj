@@ -16,14 +16,14 @@ maybe('Taxonomy service (integration)', () => {
     process.env.JWT_ACCESS_SECRET ??= 'test-secret-test-secret-test-secret';
     await resetDb();
     const e = await seedUser({
-      email: 'editor-tax@local',
+      email: 'editor-tax@example.com',
       password: 'pass1234',
       role: 'EDITOR',
       name: 'TaxEditor',
     });
     editor = {
       id: e.id,
-      email: 'editor-tax@local',
+      email: 'editor-tax@example.com',
       role: 'EDITOR',
       name: 'TaxEditor',
     };

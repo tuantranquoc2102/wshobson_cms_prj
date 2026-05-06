@@ -72,7 +72,7 @@ npm run dev
 … users can:
 - Visit `/` (homepage, list of seeded posts).
 - Visit `/blog/<slug>` (single post, sanitized markdown).
-- Log in at `/login` as `admin@local` / `editor@local` / `author1@local`.
+- Log in at `/login` as `admin@example.com` / `editor@example.com` / `author1@example.com`.
 - Manage content at `/admin/content`, draft → in-review → publish.
 - Upload media at `/admin/media`.
 - Manage categories/tags/users.

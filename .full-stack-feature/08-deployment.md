@@ -28,10 +28,10 @@ npm run dev
 ```
 
 Default seeded users (passwords from `.env`):
-- `admin@local`     (ADMIN)
-- `editor@local`    (EDITOR)
-- `author1@local`   (AUTHOR)
-- `author2@local`   (AUTHOR)
+- `admin@example.com`     (ADMIN)
+- `editor@example.com`    (EDITOR)
+- `author1@example.com`   (AUTHOR)
+- `author2@example.com`   (AUTHOR)
 
 Healthchecks:
 - `curl http://localhost:3000/api/health` → `{ ok: true, db: 'up' }`

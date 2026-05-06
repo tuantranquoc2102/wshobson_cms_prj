@@ -155,14 +155,14 @@ async function upsertPage(opts: {
 }
 
 async function main() {
-  const adminEmail = process.env.SEED_ADMIN_EMAIL ?? 'admin@local';
+  const adminEmail = process.env.SEED_ADMIN_EMAIL ?? 'admin@example.com';
   const adminPassword = process.env.SEED_ADMIN_PASSWORD ?? 'admin1234';
 
   console.log('[seed] users…');
   await upsertUser({ email: adminEmail, name: 'Site Admin', password: adminPassword, role: Role.ADMIN });
-  await upsertUser({ email: 'editor@local', name: 'Erin Editor', password: 'editor1234', role: Role.EDITOR });
-  await upsertUser({ email: 'author1@local', name: 'Alex Author', password: 'author1234', role: Role.AUTHOR });
-  await upsertUser({ email: 'author2@local', name: 'Avery Author', password: 'author1234', role: Role.AUTHOR });
+  await upsertUser({ email: 'editor@example.com', name: 'Erin Editor', password: 'editor1234', role: Role.EDITOR });
+  await upsertUser({ email: 'author1@example.com', name: 'Alex Author', password: 'author1234', role: Role.AUTHOR });
+  await upsertUser({ email: 'author2@example.com', name: 'Avery Author', password: 'author1234', role: Role.AUTHOR });
 
   console.log('[seed] categories…');
   await upsertCategory('Engineering', 'Backend, infrastructure, and tooling deep dives.');
@@ -209,7 +209,7 @@ async function main() {
       excerpt: 'How we use Prisma to keep our API and database schema in lockstep.',
       body: '## Prisma\n\nLong-form post body about Prisma, Zod, and Next.js Route Handlers.',
       status: ContentStatus.PUBLISHED,
-      authorEmail: 'author1@local',
+      authorEmail: 'author1@example.com',
       categories: ['Engineering'],
       tags: ['typescript', 'prisma', 'postgres'],
       publishedAt: days(7),
@@ -219,7 +219,7 @@ async function main() {
       excerpt: 'Lessons from building shared primitives across multiple product surfaces.',
       body: '## Design tokens\n\nWe codify our design language into tokens and primitives.',
       status: ContentStatus.PUBLISHED,
-      authorEmail: 'author2@local',
+      authorEmail: 'author2@example.com',
       categories: ['Design'],
       tags: ['design-systems', 'accessibility'],
       publishedAt: days(5),
@@ -229,7 +229,7 @@ async function main() {
       excerpt: 'What we shipped this quarter to keep page loads under 200ms.',
       body: '## Performance\n\nDetailed breakdown of perf wins this quarter.',
       status: ContentStatus.PUBLISHED,
-      authorEmail: 'author1@local',
+      authorEmail: 'author1@example.com',
       categories: ['Engineering', 'Product'],
       tags: ['performance', 'nextjs'],
       publishedAt: days(3),
@@ -239,7 +239,7 @@ async function main() {
       excerpt: 'A sneak peek at upcoming features.',
       body: 'Roadmap details and timing.',
       status: ContentStatus.IN_REVIEW,
-      authorEmail: 'author2@local',
+      authorEmail: 'author2@example.com',
       categories: ['Product'],
       tags: ['roadmap'],
     },
@@ -248,7 +248,7 @@ async function main() {
       excerpt: 'Recent improvements to authentication and session handling.',
       body: 'Security details and audit trail.',
       status: ContentStatus.IN_REVIEW,
-      authorEmail: 'author1@local',
+      authorEmail: 'author1@example.com',
       categories: ['Engineering'],
       tags: ['security'],
     },
@@ -257,7 +257,7 @@ async function main() {
       excerpt: 'Work in progress.',
       body: 'TODO: write the post.',
       status: ContentStatus.DRAFT,
-      authorEmail: 'author1@local',
+      authorEmail: 'author1@example.com',
       categories: ['Engineering'],
       tags: ['testing'],
     },
@@ -266,7 +266,7 @@ async function main() {
       excerpt: 'How our team is growing this quarter.',
       body: 'Hiring update body.',
       status: ContentStatus.DRAFT,
-      authorEmail: 'author2@local',
+      authorEmail: 'author2@example.com',
       categories: ['Culture'],
       tags: [],
     },
@@ -285,7 +285,7 @@ async function main() {
       excerpt: 'A post scheduled to publish in the near future.',
       body: 'This post is scheduled to be auto-published.',
       status: ContentStatus.DRAFT,
-      authorEmail: 'editor@local',
+      authorEmail: 'editor@example.com',
       categories: ['Announcements'],
       tags: ['release-notes'],
       scheduledFor: inDays(2),
