@@ -1,0 +1,205 @@
+// Prisma schema for the multi-author CMS.
+// See .full-stack-feature/02-database-design.md for design rationale.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ───────────────────────── Enums ─────────────────────────
+
+enum Role {
+  ADMIN
+  EDITOR
+  AUTHOR
+}
+
+enum ContentType {
+  POST
+  PAGE
+}
+
+enum ContentStatus {
+  DRAFT
+  IN_REVIEW
+  PUBLISHED
+  ARCHIVED
+}
+
+enum MediaKind {
+  IMAGE
+  VIDEO
+  DOCUMENT
+  OTHER
+}
+
+// ───────────────────────── User & Auth ─────────────────────────
+
+model User {
+  id           String    @id @default(cuid())
+  email        String    @unique
+  passwordHash String
+  name         String
+  role         Role      @default(AUTHOR)
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+  deletedAt    DateTime?
+
+  contents      Content[]      @relation("ContentAuthor")
+  revisions     Revision[]
+  refreshTokens RefreshToken[]
+  uploads       Media[]
+  activities    ActivityLog[]
+
+  @@index([role])
+  @@index([deletedAt])
+}
+
+model RefreshToken {
+  id        String    @id @default(cuid())
+  userId    String
+  tokenHash String    @unique
+  expiresAt DateTime
+  revokedAt DateTime?
+  createdAt DateTime  @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([expiresAt])
+}
+
+// ───────────────────────── Content ─────────────────────────
+
+model Content {
+  id              String        @id @default(cuid())
+  type            ContentType
+  slug            String        @unique
+  title           String
+  excerpt         String?
+  body            String
+  status          ContentStatus @default(DRAFT)
+  publishedAt     DateTime?
+  scheduledFor    DateTime?
+  authorId        String
+  featuredMediaId String?
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+  deletedAt       DateTime?
+
+  author        User              @relation("ContentAuthor", fields: [authorId], references: [id])
+  featuredMedia Media?            @relation(fields: [featuredMediaId], references: [id])
+  revisions     Revision[]
+  categories    ContentCategory[]
+  tags          ContentTag[]
+
+  @@index([type, status, publishedAt(sort: Desc)])
+  @@index([status, scheduledFor])
+  @@index([authorId, status])
+  @@index([deletedAt])
+  @@index([updatedAt(sort: Desc)])
+}
+
+model Revision {
+  id        String   @id @default(cuid())
+  contentId String
+  version   Int
+  title     String
+  body      String
+  excerpt   String?
+  authorId  String
+  createdAt DateTime @default(now())
+
+  content Content @relation(fields: [contentId], references: [id], onDelete: Cascade)
+  author  User    @relation(fields: [authorId], references: [id])
+
+  @@unique([contentId, version])
+  @@index([contentId, createdAt(sort: Desc)])
+}
+
+// ───────────────────────── Taxonomy ─────────────────────────
+
+model Category {
+  id          String   @id @default(cuid())
+  slug        String   @unique
+  name        String
+  description String?
+  createdAt   DateTime @default(now())
+
+  contents ContentCategory[]
+}
+
+model Tag {
+  id        String   @id @default(cuid())
+  slug      String   @unique
+  name      String
+  createdAt DateTime @default(now())
+
+  contents ContentTag[]
+}
+
+model ContentCategory {
+  contentId  String
+  categoryId String
+
+  content  Content  @relation(fields: [contentId], references: [id], onDelete: Cascade)
+  category Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+
+  @@id([contentId, categoryId])
+  @@index([categoryId])
+}
+
+model ContentTag {
+  contentId String
+  tagId     String
+
+  content Content @relation(fields: [contentId], references: [id], onDelete: Cascade)
+  tag     Tag     @relation(fields: [tagId], references: [id], onDelete: Cascade)
+
+  @@id([contentId, tagId])
+  @@index([tagId])
+}
+
+// ───────────────────────── Media ─────────────────────────
+
+model Media {
+  id           String    @id @default(cuid())
+  filename     String
+  storagePath  String    @unique
+  mimeType     String
+  kind         MediaKind
+  sizeBytes    Int
+  width        Int?
+  height       Int?
+  altText      String?
+  uploadedById String
+  createdAt    DateTime  @default(now())
+
+  uploadedBy User      @relation(fields: [uploadedById], references: [id])
+  contents   Content[]
+
+  @@index([uploadedById, createdAt(sort: Desc)])
+  @@index([kind])
+}
+
+// ───────────────────────── Audit ─────────────────────────
+
+model ActivityLog {
+  id         String   @id @default(cuid())
+  actorId    String
+  action     String
+  entityType String
+  entityId   String
+  metadata   Json?
+  createdAt  DateTime @default(now())
+
+  actor User @relation(fields: [actorId], references: [id])
+
+  @@index([createdAt(sort: Desc)])
+  @@index([actorId, createdAt(sort: Desc)])
+  @@index([entityType, entityId])
+}
